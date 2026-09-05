@@ -1,14 +1,14 @@
 "use client";
 import {useState} from "react";
 
-interface SerieForm{
+interface SerieFormProps{
     title: string;
     genre: string;
     seasons: number;
 }
 
 function SerieForm(){
-    const [form, setForm] = useState<SerieForm>({
+    const [form, setForm] = useState<SerieFormProps>({
         title:"",
         genre:"",
         seasons: 1,
@@ -40,3 +40,5 @@ function SerieForm(){
     );
 
 }
+
+export default SerieForm;
