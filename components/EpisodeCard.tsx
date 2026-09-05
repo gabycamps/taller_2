@@ -1,11 +1,11 @@
-export interface Episodes {
+export interface Episode {
     id: number;
     number: number;
     title: string;
     duration: number; // en minutos
 }
 
-function EpisodeCard({number, title, duration}: Episodes){
+function EpisodeCard({number, title, duration}: Episode){
     return(
         <div className="episode">
             <h2>E{number.toString()}</h2>

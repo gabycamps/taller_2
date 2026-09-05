@@ -1,6 +1,6 @@
-import EpisodeCard, { Episodes } from "./EpisodeCard";
+import EpisodeCard, { Episode } from "./EpisodeCard";
 
-function EpisodeList({episodes}: {episodes: Episodes[]}){
+function EpisodeList({episodes}: {episodes: Episode[]}){
     return(
         <div className="episodes">
             {episodes.length === 0 ? (
