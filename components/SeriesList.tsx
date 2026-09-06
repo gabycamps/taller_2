@@ -1,10 +1,18 @@
-import SeriesCard, {Serie} from "./SeriesCard";
+"use client";
+import { useSeries } from "@/context/SeriesContext";
 
-function SeriesList({series}: {series: Serie[]}){
-    return(
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+function SeriesList(){
+    const {series, loading, deleteSerie} = useSeries();
+    if (loading) return <p>Cargando series...</p>;
+
+    return (
+        <div>
             {series.map((serie) => (
-                <SeriesCard key={serie.id} {...serie} />
+                <div key={serie.id}>
+                    <h2>{serie.title}</h2>
+                    <p>{serie.genre} - {serie.seasons} temporadas</p>
+                    <button onClick={() => deleteSerie(serie.id)}>Eliminar</button>
+                </div>
             ))}
         </div>
     );

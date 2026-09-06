@@ -12,7 +12,7 @@ const episodesData = [
 export default function Home(){
     return (
     <main>
-        <SeriesList series={seriesData} />
+        <SeriesList />
         <EpisodeList episodes={episodesData} />
     </main>
     );
