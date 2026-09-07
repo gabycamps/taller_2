@@ -1,3 +1,4 @@
+import { FavoritosProvider } from "@/context/FavoritosContext";
 import { SeriesProvider } from "@/context/SeriesContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -5,8 +6,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <html lang="es">
             <body>
                 <SeriesProvider>
-                    {children}
+                    <FavoritosProvider>
+                      {children}
+                    </FavoritosProvider>
                 </SeriesProvider>
+
             </body>
         </html>
     );

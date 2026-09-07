@@ -1,19 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import SeriesList from "@/components/SeriesList";
-import EpisodeList from "@/components/EpisodeList";
+import SerieForm from "@/components/SerieForm";
 
-const seriesData = [
-    { id: 1, title: "Breaking Bad", genre: "Drama", seasons: 5, platform: "Netflix", rating: 9.5, image: "/next.svg" },
-];
+export default function Home() {
+    const [mostrarForm, setMostrarForm] = useState(false);
+    // Empieza en false: el formulario arranca oculto
 
-const episodesData = [
-    { id: 1, number: 1, title: "Piloto", duration: 45 },
-];
-
-export default function Home(){
     return (
-    <main>
-        <SeriesList />
-        <EpisodeList episodes={episodesData} />
-    </main>
+        <main className="max-w-3xl mx-auto p-6">
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold">Mis Series</h1>
+                <button
+                    onClick={() => setMostrarForm((prev) => !prev)}
+                    // invierte el valor actual, sin importar cuál sea
+                    className="bg-blue-500 text-white rounded px-4 py-2"
+                >
+                    {mostrarForm ? "Cancelar" : "+ Agregar serie"}
+                </button>
+            </div>
+
+            {mostrarForm && <SerieForm onSuccess={() => setMostrarForm(false)} />}
+
+            <SeriesList />
+        </main>
     );
 }
