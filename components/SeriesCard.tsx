@@ -41,7 +41,7 @@ function SeriesCard({ serie, onEdit, onDelete }: SeriesCardProps) {
 
             <div className="p-4 flex flex-col gap-1 flex-1">
                 <Link href={`/series/${id}`}>
-                    <h2 className="font-display text-xl leading-snug hover:text-accent transition-colors">
+                    <h2 className="font-display text-xl leading-snug hover:text-accent transition-colors underline hover:text-accent-purple">
                         {title}
                     </h2>
                 </Link>
@@ -54,10 +54,10 @@ function SeriesCard({ serie, onEdit, onDelete }: SeriesCardProps) {
                     {/* mt-auto: empuja este bloque al fondo de la tarjeta,así todas las tarjetas alinean sus botones aunque tengan distinta cantidad de texto arriba */}
                     <FavoritoButton serieId={id} />
                     <div className="flex gap-3 text-sm">
-                        <button onClick={onEdit} className="text-muted hover:text-foreground transition-colors">
+                        <button onClick={onEdit} className="text-muted hover:text-foreground transition-colors cursor-pointer">
                             Editar
                         </button>
-                        <button onClick={onDelete} className="text-muted hover:text-red-400 transition-colors">
+                        <button onClick={onDelete} className="text-muted hover:text-red-400 transition-colors cursor-pointer">
                             Eliminar
                         </button>
                     </div>

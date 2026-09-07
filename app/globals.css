@@ -1,22 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  /* Paleta fija (no dependiente del modo claro/oscuro del sistema) --
-     un catálogo de series se ve mejor siempre en modo oscuro, como una sala de cine */
   --background: #0f1115;
-  --surface: #1a1d24;       /* color de las tarjetas, un poco más claro que el fondo */
+  --surface: #1a1d24;
   --foreground: #e8e6e1;
-  --muted: #9b9a97;         /* texto secundario: género, temporadas, etc. */
-  --accent: #e8a33d;        /* único color de acento -- úsalo con moderación */
+  --muted: #9b9a97;
+  --accent: #e8a33d;        /* ámbar -- lo dejamos para rating y botón principal */
+  --accent-purple: #a78bfa; /* 👈 nuevo: morado suave, para el efecto glow de los títulos */
   --border: #2a2d35;
 }
 
 
 @theme inline {
+  /* TODAS las variables personalizadas deben registrarse aquí,
+  con el prefijo --color-, para que Tailwind genere las clases
+  bg-*, text-*, border-* correspondientes */
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-purple: var(--accent-purple);
+  --color-border: var(--border);
+
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {

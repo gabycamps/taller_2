@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { useSeries, Series } from "@/context/SeriesContext";
 
+const GENEROS = ["Drama", "Comedia", "Acción", "Ciencia Ficción", "Documental", "Romance"]
+
 interface SerieFormData {
     title: string;
     genre: string;
@@ -28,6 +30,20 @@ interface SerieFormProps {
     onSuccess?: () => void;
 }
 
+function FormLabel({ htmlFor, children, required = false }: {
+    htmlFor: string;
+    children: React.ReactNode;
+    required?: boolean;
+}) {
+    return (
+        <label htmlFor={htmlFor} className="text-sm text-muted mb-1 block">
+            {children}
+            {required && <span className="text-red-400 ml-0.5">*</span>}
+            {/* El asterisco solo aparece si le pasas required={true} */}
+        </label>
+    );
+}
+
 function SerieForm({ serieEditar, onSuccess }: SerieFormProps) {
     const { addSerie, updateSerie } = useSeries();
     // Sacamos la función del contexto para poder usarla al enviar el formulario
@@ -48,7 +64,7 @@ function SerieForm({ serieEditar, onSuccess }: SerieFormProps) {
         }
     }, [serieEditar]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         setForm({
             ...form,
@@ -98,35 +114,48 @@ function SerieForm({ serieEditar, onSuccess }: SerieFormProps) {
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md">
+            <FormLabel htmlFor="title" required>Nombre de la serie</FormLabel>
             <div>
                 <input
                     name="title"
                     value={form.title}
                     onChange={handleChange}
-                    placeholder="Nombre de la serie"
                     className="border rounded px-3 py-2 w-full"
                 />
                 {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
             </div>
 
             <div>
-                <input
+                <FormLabel htmlFor="genre" required>Género</FormLabel>
+                <select
+                    id="genre"
                     name="genre"
                     value={form.genre}
                     onChange={handleChange}
-                    placeholder="Genero"
-                    className="border rounded px-3 py-2 w-full"
-                />
-                {errors.genre && <p className="text-red-500 text-sm">{errors.genre}</p>}
+                    className="border border-border bg-surface rounded px-3 py-2 w-full text-foreground "
+                >
+                    <option value="" disabled>
+                        Selecciona un género
+                    </option>
+                    {/* disabled: el usuario no puede volver a seleccionar esta opción
+                        una vez elige otra -- es solo el "placeholder" del dropdown */}
+                    {GENEROS.map((g) => (
+                        <option key={g} value={g}>
+                            {g}
+                        </option>
+                    ))}
+                </select>
+                {errors.genre && <p className="text-red-400 text-sm mt-1">{errors.genre}</p>}
             </div>
 
             <div>
+                <FormLabel htmlFor="seasons" required>Temporadas</FormLabel>
+                
                 <input
                     name="seasons"
                     type="number"
                     value={form.seasons}
                     onChange={handleChange}
-                    placeholder="Temporadas"
                     className="border rounded px-3 py-2 w-full"
                 />
                 {errors.seasons && <p className="text-red-500 text-sm">{errors.seasons}</p>}
@@ -136,11 +165,12 @@ function SerieForm({ serieEditar, onSuccess }: SerieFormProps) {
                 name="platform"
                 value={form.platform}
                 onChange={handleChange}
-                placeholder="Plataforma (Netflix, HBO...)"
+                placeholder="Plataforma"
                 className="border rounded px-3 py-2 w-full"
             />
 
             <div>
+                <FormLabel htmlFor="rating" required>Rating (0–10)</FormLabel>
                 <input
                     name="rating"
                     type="number"
@@ -168,6 +198,10 @@ function SerieForm({ serieEditar, onSuccess }: SerieFormProps) {
                 placeholder="Descripción"
                 className="border rounded px-3 py-2 w-full"
             />
+
+            <p className="text-xs text-muted">
+                <span className="text-red-400">*</span> Campos obligatorios
+            </p>
 
             <button type="submit" className="bg-blue-500 text-white rounded px-4 py-2">
                 {serieEditar ? "Guardar cambios" : "Agregar serie"}

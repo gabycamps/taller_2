@@ -5,8 +5,9 @@ function FavoritoButton({serieId}: {serieId: number}){
     const {toggleFavorito, isFavorito} = useFavoritos();
 
     return(
-        <button onClick={() => toggleFavorito(serieId)}>
+        <button onClick={() => toggleFavorito(serieId)} className="cursor-pointer">
             {isFavorito(serieId) ? "Quitar de favoritos" : "Agregar a favoritos"}
+            
         </button>
     );
 }

@@ -6,6 +6,7 @@ import SerieForm from "@/components/SerieForm";
 import FavoritoButton from "@/components/FavoritoButton";
 import SeriesCard from "@/components/SeriesCard";
 import Link from "next/link";
+import Modal from "@/components/Modal";
 
 function SeriesList() {
     const { series, loading, deleteSerie } = useSeries();
@@ -34,13 +35,15 @@ function SeriesList() {
             <SearchBar onSearch={setBusqueda} />
 
             {serieEditando && (
-                <div className="border-2 border-blue-400 rounded p-4 my-4">
-                    <h3 className="font-bold mb-2">Editando: {serieEditando.title}</h3>
+                <Modal onClose={() => setSerieEditando(null)}>
+                    <h3 className="font-display text-xl mb-4 text-foreground">
+                        Editando: {serieEditando.title}
+                    </h3>
                     <SerieForm
                         serieEditar={serieEditando}
                         onSuccess={() => setSerieEditando(null)}
                     />
-                </div>
+                </Modal>
             )}
 
             {seriesFiltradas.length === 0 ? (

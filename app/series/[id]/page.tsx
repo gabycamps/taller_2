@@ -42,7 +42,7 @@ function SerieDetallePage() {
 
             <div className="flex gap-6 mt-4">
                 {serie.image && (
-                    <img src={serie.image} alt={serie.title} className="w-40 rounded" />
+                    <img src={serie.image} alt={serie.title} className="w-70 rounded" />
                 )}
                 <div>
                     <h1 className="text-3xl font-bold">{serie.title}</h1>
