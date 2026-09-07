@@ -23,20 +23,23 @@ function useLocalStorage<T>(key: string, initialValue: T){
         }
     });
 
-    useEffect(() =>{
-        // Este bloque se ejecuta cada vez que "storedValue" cambia
-        // useEffect NO cambia storedValue, solo REACCIONA a que ya cambió.
-        if (typeof window === "undefined") return;
+    const [error, setError] = useState<string | null>(null);
 
-        try{
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        try {
             localStorage.setItem(key, JSON.stringify(storedValue));
-        } catch(error){
-            console.warn(`Error guardando en localStorage key "${key}":`, error);
+            setError(null);
+            // Si guardar funcionó bien esta vez, limpiamos cualquiererror anterior
+        } catch (err) {
+            console.warn(`Error guardando en localStorage key "${key}":`, err);
+            setError("No se pudo guardar la información. Verifica el espacio disponible.");
+            // Mensaje pensado para un humano, no para un desarrollador
         }
     }, [key, storedValue]);
-    // array de dependencias: vuelve a correr este efecto cada vez que key o storedValue cambien
-    
-    return [storedValue, setStoredValue] as const;
+
+    return [storedValue, setStoredValue, error] as const;
+    // Ahora retornamos 3 elementos en vez de 2. El tercero es opcional de usar
 }
 
 export default useLocalStorage;

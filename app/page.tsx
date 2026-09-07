@@ -9,13 +9,13 @@ export default function Home() {
     // Empieza en false: el formulario arranca oculto
 
     return (
-        <main className="max-w-3xl mx-auto p-6">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Mis Series</h1>
+        <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+            <div className="flex justify-between items-center mb-6">
+                <p className="text-muted">Tu colección personal</p>
                 <button
                     onClick={() => setMostrarForm((prev) => !prev)}
                     // invierte el valor actual, sin importar cuál sea
-                    className="bg-blue-500 text-white rounded px-4 py-2"
+                    className="bg-accent text-background font-medium rounded px-4 py-2 hover:opacity-90 transition-opacity"
                 >
                     {mostrarForm ? "Cancelar" : "+ Agregar serie"}
                 </button>

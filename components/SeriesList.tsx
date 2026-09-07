@@ -4,6 +4,7 @@ import { useSeries, Series } from "@/context/SeriesContext";
 import SearchBar from "@/components/SearchBar";
 import SerieForm from "@/components/SerieForm";
 import FavoritoButton from "@/components/FavoritoButton";
+import SeriesCard from "@/components/SeriesCard";
 import Link from "next/link";
 
 function SeriesList() {
@@ -24,7 +25,7 @@ function SeriesList() {
 
         if (!confirmado) return;
         // Si canceló, no seguimos ejecutando nada más
-        
+
         deleteSerie(id);
     };
 
@@ -43,22 +44,21 @@ function SeriesList() {
             )}
 
             {seriesFiltradas.length === 0 ? (
-                <p>No se encontraron series.</p>
+                <p className="text-gray-500 mt-4">No se encontraron series.</p>
             ) : (
-                seriesFiltradas.map((serie) => (
-                    <div key={serie.id}>
-                        <Link href={`/series/${serie.id}`}>
-                            <h2 className="hover:underline cursor-pointer">{serie.title}</h2>
-                        </Link>
-                        <p>{serie.genre} - {serie.seasons} temporadas</p>
-                        <FavoritoButton serieId={serie.id} />
-                        <button onClick={() => setSerieEditando(serie)}>Editar</button>
-                        <button onClick={() => handleDelete(serie.id, serie.title)}>Eliminar</button>
-                    </div>
-                ))
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                    {seriesFiltradas.map((serie) => (
+                        <SeriesCard
+                            key={serie.id}
+                            serie={serie}
+                            onEdit={() => setSerieEditando(serie)}
+                            onDelete={() => handleDelete(serie.id, serie.title)}
+                        />
+                    ))}
+                </div>
             )}
         </div>
     );
 }
 
-export default SerieForm;
+export default SeriesList;

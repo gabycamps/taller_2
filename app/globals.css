@@ -1,9 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Paleta fija (no dependiente del modo claro/oscuro del sistema) --
+     un catálogo de series se ve mejor siempre en modo oscuro, como una sala de cine */
+  --background: #0f1115;
+  --surface: #1a1d24;       /* color de las tarjetas, un poco más claro que el fondo */
+  --foreground: #e8e6e1;
+  --muted: #9b9a97;         /* texto secundario: género, temporadas, etc. */
+  --accent: #e8a33d;        /* único color de acento -- úsalo con moderación */
+  --border: #2a2d35;
 }
+
 
 @theme inline {
   --color-background: var(--background);
@@ -22,12 +29,4 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
 }
